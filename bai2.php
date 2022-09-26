@@ -11,11 +11,15 @@
         private $ten;
         private $dkChieuCao;
         private $dkCanNang;
+        private $dkTuoi;
+        private $dkTuoiCao;
 
-        public function __construct($ten,$chieuCao,$canNang){
+        public function __construct($ten,$chieuCao,$canNang, $tuoi, $dkTuoi){
             $this->ten = $ten;
             $this->dkChieuCao = $chieuCao;
             $this->dkCanNang = $canNang;
+            $this->dkTuoi = $tuoi;
+            $this->dkTuoiCao = $dkTuoi;
         }
         public function getName(){
             return $this->ten;
@@ -25,6 +29,12 @@
         }
         public function getWeight(){
             return $this->dkCanNang;
+        }
+        public function getAge(){
+            return $this->dkTuoi;
+        }
+        public function getOld(){
+            return $this->dkTuoiCao;
         }
     }
     class vanDongVien extends conNguoi{
@@ -57,8 +67,9 @@
         }
 
         public function thiDau($monThiDau, $soHuyChuong){
-                if($this->chieuCao < $monThiDau->getHeight() || $this->canNang < $monThiDau->getWeight()){
-                    echo "Bạn vi phạm điều kiện thi đấu, bị tước huy chương";
+                if($this->chieuCao < $monThiDau->getHeight() || $this->canNang < $monThiDau->getWeight() || $this->tuoi < $monThiDau->getAge() || $this->tuoi > $monThiDau->getOld()){
+                    echo "Bạn vi phạm điều kiện thi đấu";
+                    $this->soHuyChuong -= $soHuyChuong;
                 }else{
                     $this->soHuyChuong+=$soHuyChuong;
                     if(!in_array($monThiDau->getName(), $this->cacMonDaThiDau)){
@@ -69,8 +80,8 @@
             }
             
         }
-$monThi = new monThiDau('Chạy 500m', 170, 65);
-$monThi1 = new monThiDau('Chạy 1000m', 180, 70);
+$monThi = new monThiDau('Chạy 500m', 170, 65, 18 ,45);
+$monThi1 = new monThiDau('Chạy 1000m', 180, 70, 20, 35);
 $vanDongVien1 = new vanDongVien('Nguyễn Văn A', 25, 1, date("1997-12-12"), 68, 172, 0, []);
 $vanDongVien1->thiDau($monThi, 2);
 $vanDongVien1->thiDau($monThi1, 2);
