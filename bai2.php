@@ -69,7 +69,11 @@
         public function thiDau($monThiDau, $soHuyChuong){
                 if($this->chieuCao < $monThiDau->getHeight() || $this->canNang < $monThiDau->getWeight() || $this->tuoi < $monThiDau->getAge() || $this->tuoi > $monThiDau->getOld()){
                     echo "Bạn vi phạm điều kiện thi đấu";
-                    $this->soHuyChuong -= $soHuyChuong;
+                    if($this->soHuyChuong < $soHuyChuong){
+                        $this->soHuyChuong = 0;
+                    }else{
+                        $this->soHuyChuong -= $soHuyChuong;
+                    }
                 }else{
                     $this->soHuyChuong+=$soHuyChuong;
                     if(!in_array($monThiDau->getName(), $this->cacMonDaThiDau)){
