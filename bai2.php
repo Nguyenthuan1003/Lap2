@@ -67,26 +67,40 @@
         }
 
         public function thiDau($monThiDau, $soHuyChuong){
-                if($this->chieuCao < $monThiDau->getHeight() || $this->canNang < $monThiDau->getWeight() || $this->tuoi < $monThiDau->getAge() || $this->tuoi > $monThiDau->getOld()){
-                    echo "Bạn vi phạm điều kiện thi đấu";
-                    if($this->soHuyChuong < $soHuyChuong){
-                        $this->soHuyChuong = 0;
-                    }else{
-                        $this->soHuyChuong -= $soHuyChuong;
-                    }
+            echo '<br>' . $this->soHuyChuong . '<br>';
+            if($this->soHuyChuong == -1){
+                echo "Bạn bị cấm thi đấu";
+                die;
+            }
+            if($this->chieuCao < $monThiDau->getHeight() || $this->canNang < $monThiDau->getWeight() || $this->tuoi < $monThiDau->getAge() || $this->tuoi > $monThiDau->getOld()){
+                if($this->soHuyChuong < $soHuyChuong){
+                    $this->soHuyChuong = -1;
                 }else{
-                    $this->soHuyChuong+=$soHuyChuong;
-                    if(!in_array($monThiDau->getName(), $this->cacMonDaThiDau)){
-                        array_push($this->cacMonDaThiDau, $monThiDau->getName());
-                        echo $this->layThongTin();
-                    }
+                    echo "Bạn vi phạm điều kiện thi đấu";
+                    $this->soHuyChuong -= $soHuyChuong;
                 }
+            }else{
+                $this->soHuyChuong+=$soHuyChuong;
+                if(!in_array($monThiDau->getName(), $this->cacMonDaThiDau)){
+                    array_push($this->cacMonDaThiDau, $monThiDau->getName());
+                    echo $this->layThongTin();
+                }
+            }
+                
             }
             
         }
 $monThi = new monThiDau('Chạy 500m', 170, 65, 18 ,45);
+$monThi2 = new monThiDau('Chạy 600m', 170, 65, 18 ,45);
+$monThi3 = new monThiDau('Chạy 800m', 170, 65, 18 ,45);
 $monThi1 = new monThiDau('Chạy 1000m', 180, 70, 20, 35);
 $vanDongVien1 = new vanDongVien('Nguyễn Văn A', 25, 1, date("1997-12-12"), 68, 172, 0, []);
 $vanDongVien1->thiDau($monThi, 2);
 $vanDongVien1->thiDau($monThi1, 2);
+$vanDongVien1->thiDau($monThi2, 2);
+$vanDongVien1->thiDau($monThi1, 2);
+$vanDongVien1->thiDau($monThi1, 2);
+$vanDongVien1->thiDau($monThi3, 2);
+
+
 ?>
